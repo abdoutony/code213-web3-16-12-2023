@@ -1,20 +1,21 @@
+// like model
 const mongoose = require("mongoose");
 
-const ProductTagSchema = new mongoose.Schema(
+const LikeSchema = new mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     product: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
-      required: true,
-    },
-    tag: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Tag",
       required: true,
     },
   },
   { timestamps: true }
 );
 
-const ProductTag = mongoose.model("ProductTag", ProductTagSchema);
-module.exports = ProductTag;
+const Like = mongoose.model("Like", LikeSchema);
+module.exports = Like;
