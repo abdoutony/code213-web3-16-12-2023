@@ -1,18 +1,9 @@
+const AuthController = require("../controllers/auth");
+const { verifyLogin } = require("../middleware/auth");
 module.exports = (express) => {
   const router = express.Router();
-  router.post("/register", (req, res) => {
-    // retrieve data from req.body
-    const { firstname, lastname, email, password } = req.body;
-
-    // data validation
-    if (!(firstname && lastname && email && password)) {
-      const error = "Please fill out all fields";
-      return res.status(400).send(error);
-    } else {
-      // insert user into db
-
-      return res.status(201).send("user registred");
-    }
-  });
+  router.post("/register", AuthController.register);
+  router.post("/login", AuthController.login);
+  router.get("/profile", verifyLogin, AuthController.profile);
   return router;
 };

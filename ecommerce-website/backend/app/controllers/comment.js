@@ -9,8 +9,8 @@ const { isObjectId } = require("../utils/validate-objectId");
 // create comment
 exports.addNewComment = async (req, res) => {
   try {
-    const { comment, product, user } = req.body;
-
+    const { comment, product } = req.body;
+    const user = req.params.id;
     const newComment = new Comment({
       comment: comment,
       user: user,

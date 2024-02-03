@@ -17,7 +17,17 @@ exports.getAllProducts = async (req, res) => {
 
 exports.addNewProduct = async (req, res) => {
   try {
-    const newProduct = new Product(req.body);
+    const { name, description, price, category } = req.body;
+
+    const url = req.protocol + "://" + req.get("host"); // http://localhost:4000
+
+    const newProduct = new Product({
+      name,
+      description,
+      price,
+      image: url + "/uploads/" + req.file.filename,
+      category: category,
+    });
     const savedProduct = await newProduct.save();
     res
       .status(201)

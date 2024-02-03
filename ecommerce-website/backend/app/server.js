@@ -16,6 +16,10 @@ function myMiddleWare(req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// configure public and uploads
+app.use(express.static(__dirname + "/public"));
+app.use("/uploads", express.static("uploads"));
+
 app.use(myMiddleWare);
 
 app.use("/api", mainRoutes(express));
