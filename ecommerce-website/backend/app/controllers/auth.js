@@ -62,8 +62,9 @@ exports.login = async (req, res) => {
     });
 
     await user.save();
-
-    return res.status(200).json({ msg: "user logged in", token });
+    const {password:passwordRemoved,...userWithoutPassword} = user._doc
+ 
+    return res.status(200).json({ msg: "user logged in", data:userWithoutPassword });
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
