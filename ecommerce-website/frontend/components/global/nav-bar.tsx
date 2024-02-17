@@ -10,12 +10,12 @@ export default function NavBar() {
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
           <div className="flex items-center">
-            <Link className="font-bold" href="#">
+            <Link className="font-bold" href="/">
               Ecommerce Dz
             </Link>
           </div>
           <div className="hidden md:flex md:items-center md:space-x-4">
-            <Link className="font-medium" href="#">
+            <Link className="font-medium" href="/">
               Home
             </Link>
             <Link className="font-medium" href="/products">

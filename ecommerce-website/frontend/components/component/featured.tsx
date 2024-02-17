@@ -4,10 +4,11 @@
  */
 
 
-export function featured() {
+export function Featured() {
   return (
     <section className="w-full py-12">
       <div className="container grid items-start gap-6 px-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-4 xl:gap-10">
+        
         <div className="flex flex-col gap-2">
           <img
             alt="Product image"
