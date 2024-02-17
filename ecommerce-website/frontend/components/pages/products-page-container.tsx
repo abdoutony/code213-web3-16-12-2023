@@ -1,10 +1,40 @@
-import React from 'react'
+"use client"
+import React,{useEffect,useState} from 'react'
 import ProductCard from '../global/product-card'
+import axios from "axios"
 
-export default function ProductsPageContainer() {
+type Props ={
+    data:any 
+}
+
+export default function ProductsPageContainer({data}:Props) {
+    // const [data,setData]= useState<any>([])
+    // const [counter,setCounter]=useState(0)
+    // useEffect(()=>{
+    //     async function getData(){
+    //       const res = await axios.get("http://localhost:4000/api/products")
+    //       console.log(res.data)
+    //       setData(res.data)
+    //     }
+    //     getData()
+    // },[])
+  
+    // var counter=10
+    // function handleCLick(){
+    //   setCounter(counter+1)
+    //   console.log(counter)
+    // }
+
+ 
   return (
     <div className='container my-24'>
       <h1 className='text-3xl font-bold text-center my-10'>Products</h1>
+      {/* <button className='bg-blue-500 hover:bg-blue-700 text-white 
+      hover:text-white
+       font-bold py-2 px-4 rounded' onClick={handleCLick}>click me</button>
+      
+      <h1 id="counter" className='text-3xl font-bold'>{counter}</h1>
+       */}
       <div className='flex flex-wrap'>
         {/* <div className='w-full md:w-1/2 lg:w-1/3 p-4'>
           <div className='bg-white rounded-lg overflow-hidden shadow-lg'>
@@ -46,7 +76,13 @@ export default function ProductsPageContainer() {
             </div>
           </div>
         </div> */}
-        <ProductCard />
+        {
+            data?.data?.map((product:any)=>{
+              return(
+                <ProductCard key={product._id} product={product}/>
+              )
+            })
+        }
       </div>
 
     </div>

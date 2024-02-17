@@ -1,6 +1,9 @@
 import React from 'react'
 
-export default function ProductCard() {
+type Props = {
+    product:any
+}
+export default function ProductCard({product}:Props) {
   return (
     <div className='w-full md:w-1/2 lg:w-1/3 p-4'>
     <div className='bg-white rounded-lg overflow-hidden shadow-lg'>
@@ -10,8 +13,8 @@ export default function ProductCard() {
         alt='Product 1'
       />
       <div className='p-4'>
-        <h2 className='text-xl font-bold mb-2'>Product 1</h2>
-        <p className='text-gray-700'>Description of Product 1</p>
+        <h2 className='text-xl font-bold mb-2'>{product.name}</h2>
+        <p className='text-gray-700'>{product.description}</p>
       </div>
     </div>
   </div>
