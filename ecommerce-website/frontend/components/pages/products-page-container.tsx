@@ -1,11 +1,12 @@
 import React from 'react'
+import ProductCard from '../global/product-card'
 
 export default function ProductsPageContainer() {
   return (
     <div className='container my-24'>
       <h1 className='text-3xl font-bold text-center my-10'>Products</h1>
       <div className='flex flex-wrap'>
-        <div className='w-full md:w-1/2 lg:w-1/3 p-4'>
+        {/* <div className='w-full md:w-1/2 lg:w-1/3 p-4'>
           <div className='bg-white rounded-lg overflow-hidden shadow-lg'>
             <img
               className='w-full h-48 object-cover'
@@ -44,7 +45,8 @@ export default function ProductsPageContainer() {
               <p className='text-gray-700'>Description of Product 1</p>
             </div>
           </div>
-        </div>
+        </div> */}
+        <ProductCard />
       </div>
 
     </div>
