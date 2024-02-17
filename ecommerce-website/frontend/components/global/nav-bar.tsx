@@ -2,6 +2,7 @@
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
 import NavBarDropdown from "./nav-bar-dropdown"
+import SearchDialog from "./search-dialog"
 
 export default function NavBar() {
   
@@ -21,6 +22,9 @@ export default function NavBar() {
             <Link className="font-medium" href="/products">
               Products
             </Link>
+
+            <SearchDialog />
+
             {/* <Link className="font-medium" href="#">
               Services
             </Link>
