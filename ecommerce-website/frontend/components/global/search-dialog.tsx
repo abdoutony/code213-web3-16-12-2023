@@ -18,7 +18,7 @@ export default function SearchDialog() {
     const handleClick=()=>{
     console.log(searchText)
     setOpen(false)
-    router.push(`/products?name=${searchText}`)
+    router.push(`/products?query=${searchText}`)
    }
     return (
     <Dialog open={open} onOpenChange={setOpen} >

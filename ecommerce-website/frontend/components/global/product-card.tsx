@@ -1,10 +1,17 @@
 import Link from 'next/link'
 import React from 'react'
-
+import { useCarteStore } from '@/lib/hooks/useCarteStore'
 type Props = {
-    product:any
+    product:{
+        _id:string
+        name:string
+        description:string
+        price:number
+        image:string
+    }
 }
 export default function ProductCard({product}:Props) {
+  const {addProductToCart} = useCarteStore((state):any=>state)
   return (
     <div className='w-full md:w-1/2 lg:w-1/3 p-4'>
     <div className='bg-white rounded-lg overflow-hidden shadow-lg'>
@@ -22,7 +29,9 @@ export default function ProductCard({product}:Props) {
       </div>
       <div className='p-4'>
         <p className='text-lg font-bold mb-2'>${product.price}</p>
-        <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+        <button
+        onClick={()=>addProductToCart(product)}
+        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
           Add to Cart
         </button>
       </div>

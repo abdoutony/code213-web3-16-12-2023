@@ -8,7 +8,18 @@ const { isObjectId } = require("../utils/validate-objectId");
 
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find().populate("category");
+    const {query,category}=req.query
+    console.log(query)
+    const products = await Product.find(query && query !==""  ?{
+      $or: [{ name: { $regex: query , $options: "i" } },
+      { description: { $regex: query , $options: "i" } },
+    ]}:{}).populate("category");
+    if(category && category !==""){
+       const filtredProducts = products.filter(el=>el.category.name===category)
+       console.log('iam here')
+       return res.status(200).json({ msg: "Get with success", data: filtredProducts });
+    }
+    console.log(products)
     res.status(200).json({ msg: "Get with success", data: products });
   } catch (err) {
     res.status(500).json({ msg: err.message });

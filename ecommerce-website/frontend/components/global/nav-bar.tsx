@@ -3,9 +3,11 @@ import Link from "next/link"
 import { JSX, SVGProps } from "react"
 import NavBarDropdown from "./nav-bar-dropdown"
 import SearchDialog from "./search-dialog"
+import { ShoppingCart } from "lucide-react"
+import { useCarteStore } from "@/lib/hooks/useCarteStore"
 
 export default function NavBar() {
-  
+  const {cart} = useCarteStore((state:any)=>state)
   return (
     <nav className="bg-gray-100 border-b border-gray-200 dark:bg-gray-800 dark:border-gray-800">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,8 +25,18 @@ export default function NavBar() {
               Products
             </Link>
 
+           
             <SearchDialog />
+        
 
+            <div className="relative">
+             {cart && cart.length >0 &&  <span className="text-white bg-red-500 rounded-xl absolute top-[-5px] right-0
+              left-2.5 h-4 w-4 flex items-center justify-center
+              px-2">{cart.length}</span>}
+             <Link href="/cart">
+             <ShoppingCart />
+             </Link>
+            </div>
             {/* <Link className="font-medium" href="#">
               Services
             </Link>
