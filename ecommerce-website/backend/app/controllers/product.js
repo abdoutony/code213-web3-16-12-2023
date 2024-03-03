@@ -8,12 +8,28 @@ const { isObjectId } = require("../utils/validate-objectId");
 
 exports.getAllProducts = async (req, res) => {
   try {
-    const {query,category}=req.query
+    const {query,category,userId}=req.query
     console.log(query)
     const products = await Product.find(query && query !==""  ?{
       $or: [{ name: { $regex: query , $options: "i" } },
       { description: { $regex: query , $options: "i" } },
     ]}:{}).populate("category");
+
+   console.log("pppp",products)
+   if(userId && userId !==""){
+    const productLikesByUser = await Promise.all(products.map(async(el)=>{
+       const id = el._id
+       const like = await Like.findOne({user:userId,product:id})
+       console.log("dddd",like)
+       if(like){
+         return {...el._doc,isLiked:true}
+       }else{
+         return {...el._doc,isLiked:false}
+       }
+    }))
+    return res.status(200).json({ msg: "Get with success", data: productLikesByUser });
+ }
+
     if(category && category !==""){
        const filtredProducts = products.filter(el=>el.category.name===category)
        console.log('iam here')
@@ -182,7 +198,14 @@ exports.addLikeToProduct = async (req, res) => {
     const like = await Like.findOne({ user: userId, product: product._id });
 
     if (like) {
-      return res.status(400).json({ msg: "Product already liked" });
+      await Like.deleteOne({ user: userId, product: product._id });
+      // decrement product like
+      product.likes = product.likes - 1;
+      await product.save();
+      return res
+        .status(200)
+        .json({ msg: "Like removed with success", data: like });
+        
     }
 
     const newLike = new Like({

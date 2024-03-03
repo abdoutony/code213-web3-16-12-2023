@@ -10,7 +10,8 @@ module.exports = (express) => {
   router.delete("/:id", ProductController.deleteOneProduct);
   router.post("/:id/add-tag", ProductController.addTagToProduct);
   router.post("/:id/remove-tag", ProductController.deleteTagfromProduct);
-  router.post("/:id/add-like", ProductController.addLikeToProduct);
+  router.post("/:id/like", ProductController.addLikeToProduct);
+  // router.post("/:id/is-liked", ProductController.isLikedProduct);
   router.post("/:id/remove-like", ProductController.dislikeProduct);
   router.post("/", CommentController.addNewComment);
   router.get("/", CommentController.getAllComments);

@@ -2,27 +2,41 @@
 import React,{useEffect,useState} from 'react'
 import ProductCard from '../global/product-card'
 import axios from "axios"
-
+import useFetch from '@/lib/hooks/useFetch'
+import { useSession } from 'next-auth/react'
 type Props ={
     data:any 
 }
 
-export default function ProductsPageContainer({data}:Props) {
+export default function ProductsPageContainer() {
+  const session = useSession()
+  console.log(session.data?.user?.data)
+  const [render,setRender] = useState("ddd")
+  const { data, isLoading, error ,refetch}  = useFetch(
+    //  @ts-ignore
+    `${process.env.NEXT_PUBLIC_API_URL}/products?userId=${session?.data?.user?.data?._id ? session?.data?.user?.data?._id : ""}`,
+    `products-${session?.data?.user?.data?._id ? session?.data?.user?.data?._id : ""}`,
+    
+  );
+
  
   return (
     <div className='container my-24'>
-      <h1 className='text-3xl font-bold text-center my-10'>Products</h1>
-   
-      <div className='flex flex-wrap'>
+      {/* {isLoading && <p>Loading...</p>} */}
+      {error && <p>Error: {error.message}</p>}
+     {!isLoading && !error && (
+       <div className='flex flex-wrap'>
 
-        {
-            data?.data?.map((product:any)=>{
-              return(
-                <ProductCard key={product._id} product={product}/>
-              )
-            })
-        }
-      </div>
+       {
+           data?.data?.map((product:any)=>{
+             return(
+               <ProductCard key={product._id} refetch={refetch} product={product} setRender={setRender}/>
+             )
+           })
+       }
+     </div>
+      )}
+
 
     </div>
   )
