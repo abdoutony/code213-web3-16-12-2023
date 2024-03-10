@@ -15,12 +15,12 @@ exports.getAllProducts = async (req, res) => {
       { description: { $regex: query , $options: "i" } },
     ]}:{}).populate("category");
 
-   console.log("pppp",products)
+  //  console.log("pppp",products)
    if(userId && userId !==""){
     const productLikesByUser = await Promise.all(products.map(async(el)=>{
        const id = el._id
        const like = await Like.findOne({user:userId,product:id})
-       console.log("dddd",like)
+      //  console.log("dddd",like)
        if(like){
          return {...el._doc,isLiked:true}
        }else{
@@ -32,10 +32,10 @@ exports.getAllProducts = async (req, res) => {
 
     if(category && category !==""){
        const filtredProducts = products.filter(el=>el.category.name===category)
-       console.log('iam here')
+      //  console.log('iam here')
        return res.status(200).json({ msg: "Get with success", data: filtredProducts });
     }
-    console.log(products)
+    // console.log(products)
     res.status(200).json({ msg: "Get with success", data: products });
   } catch (err) {
     res.status(500).json({ msg: err.message });
